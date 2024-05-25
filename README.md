@@ -75,6 +75,6 @@ firmado entre frontend y backend) y datos (hashing de contraseñas) del sistema.
 
 ## Base de Datos:
 ### Diagrama Entidad Relación:
-![Diagrama E-R](/DisenoE-R.jpg)
+![Diseño E-R](DiagramaE-R.jpg)
 ### Diagrama de clases:
-![Diagrama E-R](/Diagrama-de-Clases.jpg)
+![Diagrama de Clases](/Diagrama-de-Clases.jpg)
