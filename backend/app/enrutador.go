@@ -29,8 +29,10 @@ func MapRoutes(engine *gin.Engine) {
 package router
 
 import (
-	"backend/controlador/usuarios"
-	"backend/controlador/usuarios"
+	"backend/controlador/usuario"
+	"backend/controlador/suscripciones"
+	"backend/controlador/cursos"
+
 	"github.com/gin-gonic/gin"
 )
 
