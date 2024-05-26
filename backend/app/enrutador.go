@@ -24,3 +24,18 @@ func StartRoute() {
 func MapRoutes(engine *gin.Engine) {
 
 }
+
+/*
+package router
+
+import (
+	"backend/controlador/usuarios"
+	"backend/controlador/usuarios"
+	"github.com/gin-gonic/gin"
+)
+
+func MapUrls(engine *gin.Engine) {
+	engine.POST("/users/login", users.Login)
+}
+
+*/
