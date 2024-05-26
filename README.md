@@ -70,8 +70,9 @@ firmado entre frontend y backend) y datos (hashing de contraseñas) del sistema.
 
 ## Repositorios Útiles:
 1. Repositorio del Edu [Sensores](https://github.com/ucc-arq/mvc-go)
-2. Repositorio del Emi [Actividades en clase](https://github.com/eric-1918/ucc-as-edd)
-3. General: [Consigna del trabajo](https://drive.google.com/drive/folders/1E8c5Nrn12-fuPaUWXXetELYa25e1c2g6)
+2. Repositorio del Eric [Actividades en clase](https://github.com/eric-1918/ucc-as-edd)
+3. Repositorio del Emi [Ejemplo del enunciado](https://github.com/emikohmann/ucc-arq-soft-1-2024/tree/main)
+4. General: [Consigna del trabajo](https://drive.google.com/drive/folders/1E8c5Nrn12-fuPaUWXXetELYa25e1c2g6)
 
 ## Base de Datos:
 ### Diagrama Entidad Relación:
