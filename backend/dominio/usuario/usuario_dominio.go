@@ -8,7 +8,7 @@ type UsuarioData struct {
 	Passwordhash string `json:"passwordhash"`
 	Tipo         string `json:"tipo"`
 	//Técnicamente Nombre y Apellido no son datos del Diseño E-R
-	//Sin embargo, considero apropiado agregarlos
+	//Sin embargo, considero apropiado agregarlos.
 	//Falta trabajar con fechas. (Creación y Update)
 }
 
