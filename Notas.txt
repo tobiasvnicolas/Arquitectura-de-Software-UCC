@@ -1,0 +1,20 @@
+LISTADO DE MÉTODOS POR CLASES:
+
+Suscripciones
+    1. Listar los cursos inscriptos por alumno
+
+
+Usuarios
+    1. Sistema de Login
+    2. gestión de permisos de usuarios.
+
+Cursos
+    1. Creación de Cursos (administradores).
+    2. Edición de Cursos (administradores).
+    3. Eliminación de Cursos (administradores).
+    4. Listado de Cursos disponibles para inscripción (Supuestamente es Frontend)
+    5. Listar datos de cursos por:
+        a. Descripción
+        b. Instructor
+        c. Duración
+        d. Requisitos
