@@ -1,6 +1,6 @@
 # Arquitectura-de-Software-UCC
 
-FrontEnd: Resumen
+Frontend: Resumen
 Pantalla de inicio (Home): Se muestran los cursos disponibles usando CourseList.
 Búsqueda de cursos: Implementado en CourseSearch y utilizado en Home.
 Detalle del curso: Mostrado en CourseDetail y accesible desde CoursePage.

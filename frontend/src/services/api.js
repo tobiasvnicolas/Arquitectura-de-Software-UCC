@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api'; // Asegúrate de que este URL sea el correcto para tu backend
+const API_URL = 'http://localhost:3000/api';
 
 export const fetchCourses = async () => {
     const response = await fetch(`${API_URL}/courses`);
