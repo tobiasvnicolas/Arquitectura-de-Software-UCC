@@ -1,13 +1,46 @@
 package servicios
 
 import(
-	"Arquitectura-de-Software-UCC/backend/utils/errors"
-	"Arquitectura-de-Software-UCC/backend/dominio/usuario"
+	client "Arquitectura-de-Software-UCC/backend/clientes"
 	"Arquitectura-de-Software-UCC/backend/dao"
+	"Arquitectura-de-Software-UCC/backend/dominio/usuario"
+	"fmt"
+	"errors"
+	"strings"
+	"crypto/md5"
+	e "Arquitectura-de-Software-UCC/backend/utils"
+
 )
 
-func Login(email string, password string) (string,error){
+type usuarioServicio struct{
+	usuarioCliente client.UsuarioClienteInterface
+}
 
+type usuarioServiceInterface interface {
+	Login(email string, password string) (string , error)
+	GetUsuariobyEmail(email string) (dominio.UsuarioData, e.ApiError)
+	CrearUsuario(newusuario dominio.UsuarioData) (dominio.UsuarioData,e.ApiError)
+}
+
+
+var (
+	UsuarioServicio usuarioServiceInterface
+)
+
+func initUsuarioService(usuarioCliente client.UsuarioClienteInterface) usuarioServiceInterface {
+	service := new(usuarioServicio)
+	service.usuarioCliente = usuarioCliente
+	return service
+}
+
+func init(){
+	UsuarioServicio = initUsuarioService(client.UsuarioCliente)
+}
+
+
+func(s *usuarioServicio) Login(email string, password string) (string,error){
+
+	var usuario dao.Usuario
 	if strings.TrimSpace(email) == ""{
 		return "", errors.New("Debe ingresar un email.")
 	}
@@ -16,15 +49,16 @@ func Login(email string, password string) (string,error){
 		return "", errors.New("Debe ingresar una contraseña.")
 	}
 
-	hash := fmt.Sprintf("%x", mdS.Sum([]byte(password)))
+	hash := fmt.Sprintf("%x", md5.Sum([]byte(password)))
 
-	Usuario, err := clients.GetUsuariobyEmail(email)
+	usuario, err :=  s.usuarioCliente.GetUsuariobyEmail(email)
+
 	if err != nil{
 		return "", fmt.Errorf("Hubo un error al buscar el usuario en la Base de Datos.")
 	
 	}
 
-	if hash != Usuario.Passwordhash {
+	if hash != usuario.Passwordhash {
 		return "", fmt.Errorf("Contraseña incorrecta.")
 	}
 
@@ -32,27 +66,41 @@ func Login(email string, password string) (string,error){
 	return token, nil
 }
 
-type usuarioService struct{}
+func (s *usuarioServicio) GetUsuariobyEmail(email string) (dominio.UsuarioData, e.ApiError) {
 
-type usuarioServiceInterface interface {
-	GetUsuariobyEmail(email string) (dominio.UsuarioData, e.ApiError)
-}
+	var usuario dao.Usuario
+	usuario, err := s.usuarioCliente.GetUsuariobyEmail(email)
+	var us dominio.UsuarioData
 
-var (
-	UsuarioService usuarioServiceInterface
-)
+	if err != nil {
+		return us, e.NewBadRequestApiError("usuario not found")
+	}
 
-func init() {
-	UsuarioService = &usuarioService{}
-}
-
-func(s *usuarioService) GetUsuariobyEmail(email string) (dominio.UsuarioData, e.ApiError){
-	var usuario dao.Usuario = clientes.GetUsuariobyEmail(email)
-	var usuarioData dominio.UsuarioData
-
-	usuarioData.Email = usuario.Email
-	usuarioData.Nombre = usuarioData.Nombre
+	us.Email = usuario.Email
 	
-	return usuarioData, nil
+
+	return us, nil
+}
+
+func (s *usuarioServicio) CrearUsuario (newusuario dominio.UsuarioData) (dominio.UsuarioData,e.ApiError) { 
+
+	var user dao.Usuario
+
+	user.Nombre = newusuario.Nombre
+	user.Apellido = newusuario.Apellido
+	user.Email = newusuario.Email
+
+	hash := fmt.Sprintf("%x", md5.Sum([]byte(newusuario.Passwordhash)))
+
+	user.Passwordhash = hash
+	newusuario.Passwordhash = user.Passwordhash
+	user.Tipo = newusuario.Tipo
+
+	user = s.usuarioCliente.CrearUsuario(user)
+
+	newusuario.UsuarioID = user.UsuarioID
+
+	return newusuario, nil
 
 }
+

@@ -37,7 +37,8 @@ func init() {
 
 func StartDbEngine() {
 	// We need to migrate all classes model.
-	db.AutoMigrate(&dao.Curso{}, &dao.Usuario{}, &dao.Inscripcion{})
-
+	db.AutoMigrate(&dao.Curso{})
+	db.AutoMigrate(&dao.Usuario{})
+	db.AutoMigrate( &dao.Inscripcion{})
 	log.Info("Finishing Migration Database Tables")
 }
