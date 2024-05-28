@@ -19,3 +19,7 @@ type LoginRequest struct {
 type LoginResponse struct {
 	Token     string `json:"token"`
 }
+
+type Resultado struct {
+	Mensaje string `json:"mensaje"`
+}
