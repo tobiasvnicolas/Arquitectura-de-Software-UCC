@@ -65,7 +65,7 @@ if err != nil{
 }
 
 newusuario, er := servicios.UsuarioServicio.CrearUsuario(newusuario)
-if err != nil{
+if er != nil{
 	c.JSON(er.Status(), er)
 	return
 }

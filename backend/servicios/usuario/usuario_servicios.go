@@ -1,7 +1,7 @@
 package servicios
 
 import(
-	client "Arquitectura-de-Software-UCC/backend/clientes"
+	client "Arquitectura-de-Software-UCC/backend/clientes/usuario"
 	"Arquitectura-de-Software-UCC/backend/dao"
 	"Arquitectura-de-Software-UCC/backend/dominio/usuario"
 	"fmt"

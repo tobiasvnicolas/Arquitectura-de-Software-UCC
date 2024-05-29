@@ -1,7 +1,8 @@
 package db
 
 import (
-	client "Arquitectura-de-Software-UCC/backend/clientes"
+	clienteUsuario "Arquitectura-de-Software-UCC/backend/clientes/usuario"
+	clienteCurso "Arquitectura-de-Software-UCC/backend/clientes/cursos"
 	"Arquitectura-de-Software-UCC/backend/dao"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -31,14 +32,15 @@ func init() {
 	}
 
 	// We need to add all CLients that we build
-	client.Db = db
+	clienteUsuario.Db = db
+	clienteCurso.Db = db
 
 }
 
 func StartDbEngine() {
 	// We need to migrate all classes model.
 	db.AutoMigrate(&dao.Curso{})
-	db.Debug().AutoMigrate(&dao.Usuario{})
+	db.AutoMigrate(&dao.Usuario{})
 	db.AutoMigrate( &dao.Inscripcion{})
 
 	log.Info("Finishing Migration Database Tables")
