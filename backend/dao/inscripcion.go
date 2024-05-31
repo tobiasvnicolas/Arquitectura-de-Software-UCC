@@ -1,4 +1,6 @@
-package dao
+package modelo
+
+//import "time"
 
 type Inscripcion struct {
 	ID        int `gorm:"primary_key;AUTO_INCREMENT"`
