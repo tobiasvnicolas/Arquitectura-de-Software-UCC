@@ -73,8 +73,9 @@ func (s *usuarioServicio) GetUsuariobyEmail(email string) (dominio.UsuarioData, 
 	var us dominio.UsuarioData
 
 	if err != nil {
-		return us, e.NewBadRequestApiError("usuario not found")
+		return us, e.NewBadRequestApiError("Usuario no encontrado")
 	}
+	
 	us.Nombre = usuario.Nombre
 	us.Apellido = usuario.Apellido
 	us.Tipo = usuario.Tipo

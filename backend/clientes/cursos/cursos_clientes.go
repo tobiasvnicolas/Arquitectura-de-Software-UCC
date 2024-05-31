@@ -13,6 +13,7 @@ type cursoCliente struct{}
 
 type CursoClienteInterface interface{
 	CrearCurso(curso dao.Curso) dao.Curso
+	GetCursoById(id int64) (dao.Curso, error)
 }
 
 var(
@@ -32,4 +33,20 @@ func (s *cursoCliente) CrearCurso (curso dao.Curso) dao.Curso{
 
 	log.Debug("Curso Creado: ", curso.CursoID)
 	return curso
+}
+
+func(s *cursoCliente) GetCursoById (id int64) (dao.Curso, error){
+	var curso dao.Curso
+
+	result := Db.Where ("curso_id = ?", id).First(&curso)
+
+	if result.Error != nil {
+		return curso, result.Error
+	}
+
+	log.Debug("Curso: ", curso)
+
+	return curso, nil
+
+
 }
