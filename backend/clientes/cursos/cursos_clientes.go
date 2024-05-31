@@ -1,1 +1,1 @@
-package clientes
+package cursos

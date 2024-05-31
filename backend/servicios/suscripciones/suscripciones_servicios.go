@@ -1,1 +1,1 @@
-package servicios
+package suscripciones
