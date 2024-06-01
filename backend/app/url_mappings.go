@@ -2,6 +2,7 @@ package app
 
 import (
 	cursoControlador "Arquitectura-de-Software-UCC/backend/controlador/cursos"
+	inscripcionControlador "Arquitectura-de-Software-UCC/backend/controlador/inscripcion"
 	usuarioControlador "Arquitectura-de-Software-UCC/backend/controlador/usuario"
 
 	log "github.com/sirupsen/logrus"
@@ -20,7 +21,7 @@ func mapUrls() {
 	router.GET("/cursos/:id", cursoControlador.GetCursoById)
 
 	// INSCRIPCION
-	//router.POST("/inscribirse", usuarioControlador.Login)
+	router.POST("/inscribirse", inscripcionControlador.CrearInscripcion)
 	log.Info("Finishing mappings configurations")
 
 }
