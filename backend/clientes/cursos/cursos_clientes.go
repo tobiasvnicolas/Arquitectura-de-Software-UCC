@@ -2,6 +2,7 @@ package cursos
 
 import (
 	"Arquitectura-de-Software-UCC/backend/dao"
+
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
 )

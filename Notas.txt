@@ -5,8 +5,8 @@ Suscripciones
 
 
 Usuarios
-    1. Sistema de Login
-    2. gestión de permisos de usuarios.
+    1. Sistema de Login (Hecho)
+    2. gestión de permisos de usuarios. 
 
 Cursos
     1. Creación de Cursos (administradores).
