@@ -1,42 +1,43 @@
 package servicios
 
-import (
+import(
 	client "Arquitectura-de-Software-UCC/backend/clientes/cursos"
-	dao "Arquitectura-de-Software-UCC/backend/dao"
-	"Arquitectura-de-Software-UCC/backend/dominio/cursos"
+	"Arquitectura-de-Software-UCC/backend/dao"
+	"Arquitectura-de-Software-UCC/backend/dominio"
 	e "Arquitectura-de-Software-UCC/backend/utils"
+
 )
 
-type cursoServicio struct {
+type cursoServicio struct{
 	cursoCliente client.CursoClienteInterface
 }
 
-type cursoServiceInterface interface {
+type cursoServiceInterface interface{
 	CrearCurso(newcurso dominio.CursoData) (dominio.CursoData, e.ApiError)
-	GetCursoById(id int64) (dominio.CursoData, e.ApiError)
+	GetCursoById (id int64) (dominio.CursoData, e.ApiError)
 }
 
-var (
+var(
 	CursoServicio cursoServiceInterface
 )
 
-func initCursoService(cursoCliente client.CursoClienteInterface) cursoServiceInterface {
+func initCursoService(cursoCliente client.CursoClienteInterface) cursoServiceInterface{
 	service := new(cursoServicio)
 	service.cursoCliente = cursoCliente
 	return service
 }
 
-func init() {
+func init(){
 	CursoServicio = initCursoService(client.CursoCliente)
 }
 
-func (s *cursoServicio) CrearCurso(newcurso dominio.CursoData) (dominio.CursoData, e.ApiError) {
+func (s *cursoServicio) CrearCurso(newcurso dominio.CursoData) (dominio.CursoData, e.ApiError){
 	var curso dao.Curso
-
+	
 	curso.Nombre = newcurso.Nombre
 	curso.Descripcion = newcurso.Descripcion
 	curso.Categoria = newcurso.Categoria
-
+	
 	curso = s.cursoCliente.CrearCurso(curso)
 
 	newcurso.CursoID = curso.CursoID
@@ -44,11 +45,11 @@ func (s *cursoServicio) CrearCurso(newcurso dominio.CursoData) (dominio.CursoDat
 	return newcurso, nil
 }
 
-func (s *cursoServicio) GetCursoById(id int64) (dominio.CursoData, e.ApiError) {
+func (s *cursoServicio) GetCursoById(id int64) (dominio.CursoData, e.ApiError){
 	var curso dao.Curso
 
 	curso, err := s.cursoCliente.GetCursoById(id)
-
+	
 	var cu dominio.CursoData
 
 	if err != nil {
@@ -61,5 +62,6 @@ func (s *cursoServicio) GetCursoById(id int64) (dominio.CursoData, e.ApiError) {
 	cu.Categoria = curso.Categoria
 
 	return cu, nil
+
 
 }

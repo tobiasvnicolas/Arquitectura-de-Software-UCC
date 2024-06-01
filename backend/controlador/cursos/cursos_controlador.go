@@ -1,28 +1,29 @@
-package controlador
+package cursosControlador
 
-import (
-	"Arquitectura-de-Software-UCC/backend/dominio/cursos"
-	"Arquitectura-de-Software-UCC/backend/servicios/cursos"
+import(
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"net/http"
+	"Arquitectura-de-Software-UCC/backend/dominio"
+	"Arquitectura-de-Software-UCC/backend/servicios"
+	"net/http"	
 	"strconv"
+
 )
 
-func CrearCurso(c *gin.Context) {
+func CrearCurso(c *gin.Context){
 	var newcurso dominio.CursoData
 
 	err := c.BindJSON(&newcurso)
 	log.Debug(newcurso)
 
-	if err != nil {
+	if err != nil{
 		log.Error(err.Error())
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
 	newcurso, er := servicios.CursoServicio.CrearCurso(newcurso)
-	if er != nil {
+	if er != nil{
 		c.JSON(er.Status(), er)
 		return
 	}
@@ -31,7 +32,7 @@ func CrearCurso(c *gin.Context) {
 
 }
 
-func GetCursoById(c *gin.Context) {
+func GetCursoById (c *gin.Context){
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 
 	if err != nil {

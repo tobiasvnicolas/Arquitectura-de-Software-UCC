@@ -1,18 +1,20 @@
-package usuario
+package usuarioControlador
 
-import (
-	"Arquitectura-de-Software-UCC/backend/dominio/usuario"
-	"Arquitectura-de-Software-UCC/backend/servicios/usuario"
-	"fmt"
+import(
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
+	"fmt"
 	"net/http"
+	"Arquitectura-de-Software-UCC/backend/dominio"
+	"Arquitectura-de-Software-UCC/backend/servicios"
+	log "github.com/sirupsen/logrus"
+
+
 )
 
-func Login(c *gin.Context) {
+func Login(c *gin.Context){
 	var request dominio.LoginRequest
 
-	if err := c.ShouldBindJSON(&request); err != nil {
+	if err := c.ShouldBindJSON(&request); err != nil{
 		c.JSON(http.StatusBadRequest, dominio.Resultado{
 			Mensaje: fmt.Sprintf("Request invalido: %s", err.Error()),
 		})
@@ -21,7 +23,7 @@ func Login(c *gin.Context) {
 
 	token, err := servicios.UsuarioServicio.Login(request.Email, request.Password)
 
-	if err != nil {
+	if err != nil{
 		c.JSON(http.StatusUnauthorized, dominio.Resultado{
 			Mensaje: fmt.Sprintf("Login no autorizado: %s", err.Error()),
 		})
@@ -33,57 +35,40 @@ func Login(c *gin.Context) {
 	})
 }
 
-func GetUsuariobyEmail(c *gin.Context) {
+func GetUsuariobyEmail(c *gin.Context){
 
-	email := c.Param("email")
-	var usuarioData dominio.UsuarioData
+email := c.Param("email")
+var usuarioData dominio.UsuarioData
 
-	usuarioData, err := servicios.UsuarioServicio.GetUsuariobyEmail(email)
+usuarioData, err := servicios.UsuarioServicio.GetUsuariobyEmail(email)
 
-	if err != nil {
-		c.JSON(err.Status(), err)
-		return
-	}
+if err != nil{
+	c.JSON(err.Status(),err)
+	return
+}
 
-	c.JSON(http.StatusOK, usuarioData)
+c.JSON(http.StatusOK, usuarioData)
 
 }
 
-func CrearUsuario(c *gin.Context) {
-	var newusuario dominio.UsuarioData
+func CrearUsuario(c *gin.Context){
+var newusuario dominio.UsuarioData
 
-	err := c.BindJSON(&newusuario)
+err := c.BindJSON(&newusuario)
 
-	log.Debug(newusuario)
+log.Debug(newusuario)
 
-	if err != nil {
-		log.Error(err.Error())
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	newusuario, er := servicios.UsuarioServicio.CrearUsuario(newusuario)
-	if er != nil {
-		c.JSON(er.Status(), er)
-		return
-	}
-
-	c.JSON(http.StatusCreated, newusuario)
+if err != nil{
+	log.Error(err.Error())
+	c.JSON(http.StatusBadRequest, err.Error())
+	return
 }
 
-/*
-import (
-	usersDomain "Arquitectura-de-Software-UCC/backend/dominio/usuario"
-	usersService "Arquitectura-de-Software-UCC/backend/servicios/usuario"
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-)
-
-func Login(context *gin.Context) {
-	var loginRequest usersDomain.LoginRequest
-	context.BindJSON(&loginRequest)
-	response := usersService.Login(loginRequest)
-	context.JSON(http.StatusOK, response)
+newusuario, er := servicios.UsuarioServicio.CrearUsuario(newusuario)
+if er != nil{
+	c.JSON(er.Status(), er)
+	return
 }
-*/
+
+c.JSON(http.StatusCreated, newusuario)
+}
