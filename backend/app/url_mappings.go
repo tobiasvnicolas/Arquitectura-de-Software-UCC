@@ -12,6 +12,7 @@ func mapUrls() {
 	//USUARIOS
 	router.POST("/login", usuarioControlador.Login)
 	router.GET("/usuario/:email", usuarioControlador.GetUsuariobyEmail)
+	router.GET("/usuario/:id", usuarioControlador.GetUsuariobyID)
 	router.POST("/usuario", usuarioControlador.CrearUsuario)
 
 	// CURSOS
