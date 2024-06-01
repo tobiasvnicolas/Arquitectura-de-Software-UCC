@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -16,11 +17,11 @@ func init() {
 }
 
 func StartRoute() {
-	engine := gin.New()
-	MapRoutes(engine)
+	mapUrls()
+
 	log.Info("Starting server")
 	router.Run(":8080")
 }
-func MapRoutes(engine *gin.Engine) {
 
-}
+
+
