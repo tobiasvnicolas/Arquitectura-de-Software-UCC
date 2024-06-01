@@ -3,11 +3,13 @@ package servicios
 import(
 	client "Arquitectura-de-Software-UCC/backend/clientes/usuario"
 	"Arquitectura-de-Software-UCC/backend/dao"
-	"Arquitectura-de-Software-UCC/backend/dominio/usuario"
+	"Arquitectura-de-Software-UCC/backend/dominio"
 	"fmt"
 	"errors"
 	"strings"
 	"crypto/md5"
+	log "github.com/sirupsen/logrus"
+
 	e "Arquitectura-de-Software-UCC/backend/utils"
 
 )
@@ -37,10 +39,12 @@ func init(){
 	UsuarioServicio = initUsuarioService(client.UsuarioCliente)
 }
 
+func generateHash(password string) string {
+	return fmt.Sprintf("%x", md5.Sum([]byte(password)))
+}
 
 func(s *usuarioServicio) Login(email string, password string) (string,error){
 
-	var usuario dao.Usuario
 	if strings.TrimSpace(email) == ""{
 		return "", errors.New("Debe ingresar un email.")
 	}
@@ -49,16 +53,17 @@ func(s *usuarioServicio) Login(email string, password string) (string,error){
 		return "", errors.New("Debe ingresar una contraseña.")
 	}
 
-	hash := fmt.Sprintf("%x", md5.Sum([]byte(password)))
+	hash :=  generateHash(password)
+	log.Println("Hash de la contraseña ingresada:", hash) 
 
-	usuario, err :=  s.usuarioCliente.GetUsuariobyEmail(email)
+	usuarioo, err :=  s.usuarioCliente.GetUsuariobyEmail(email)
 
 	if err != nil{
 		return "", fmt.Errorf("Hubo un error al buscar el usuario en la Base de Datos.")
 	
 	}
 
-	if hash != usuario.Passwordhash {
+	if hash != usuarioo.Passwordhash {
 		return "", fmt.Errorf("Contraseña incorrecta.")
 	}
 
@@ -68,20 +73,20 @@ func(s *usuarioServicio) Login(email string, password string) (string,error){
 
 func (s *usuarioServicio) GetUsuariobyEmail(email string) (dominio.UsuarioData, e.ApiError) {
 
-	var usuario dao.Usuario
-	usuario, err := s.usuarioCliente.GetUsuariobyEmail(email)
+	var usuarioo dao.Usuario
+	usuarioo, err := s.usuarioCliente.GetUsuariobyEmail(email)
 	var us dominio.UsuarioData
 
 	if err != nil {
 		return us, e.NewBadRequestApiError("Usuario no encontrado")
 	}
 	
-	us.Nombre = usuario.Nombre
-	us.Apellido = usuario.Apellido
-	us.Tipo = usuario.Tipo
-	us.Email = usuario.Email
-	us.Passwordhash = usuario.Passwordhash
-	us.UsuarioID = usuario.UsuarioID
+	us.Nombre = usuarioo.Nombre
+	us.Apellido = usuarioo.Apellido
+	us.Tipo = usuarioo.Tipo
+	us.Email = usuarioo.Email
+	us.Passwordhash = usuarioo.Passwordhash
+	us.UsuarioID = usuarioo.UsuarioID
 	
 
 	return us, nil
@@ -95,7 +100,9 @@ func (s *usuarioServicio) CrearUsuario (newusuario dominio.UsuarioData) (dominio
 	user.Apellido = newusuario.Apellido
 	user.Email = newusuario.Email
 
-	hash := fmt.Sprintf("%x", md5.Sum([]byte(newusuario.Passwordhash)))
+	hash := generateHash(newusuario.Passwordhash)
+	log.Println("Hash de la contraseña ingresada:", hash) 
+
 
 	user.Passwordhash = hash
 	newusuario.Passwordhash = user.Passwordhash

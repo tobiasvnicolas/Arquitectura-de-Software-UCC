@@ -3,7 +3,7 @@ package servicios
 import(
 	client "Arquitectura-de-Software-UCC/backend/clientes/cursos"
 	"Arquitectura-de-Software-UCC/backend/dao"
-	"Arquitectura-de-Software-UCC/backend/dominio/cursos"
+	"Arquitectura-de-Software-UCC/backend/dominio"
 	e "Arquitectura-de-Software-UCC/backend/utils"
 
 )

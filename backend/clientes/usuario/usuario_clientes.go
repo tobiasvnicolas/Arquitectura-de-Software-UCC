@@ -1,4 +1,4 @@
-package clientes
+package usuario
 
 import (
 	"Arquitectura-de-Software-UCC/backend/dao"

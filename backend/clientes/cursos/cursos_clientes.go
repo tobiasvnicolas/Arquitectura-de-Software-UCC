@@ -1,4 +1,4 @@
-package clientes
+package cursos
 
 import(
 "Arquitectura-de-Software-UCC/backend/dao"
@@ -14,6 +14,7 @@ type cursoCliente struct{}
 type CursoClienteInterface interface{
 	CrearCurso(curso dao.Curso) dao.Curso
 	GetCursoById(id int64) (dao.Curso, error)
+	//SearchCursos(palabra string) (dao.Curso, error)
 }
 
 var(
@@ -50,3 +51,11 @@ func(s *cursoCliente) GetCursoById (id int64) (dao.Curso, error){
 
 
 }
+
+// func (s *cursoCliente) SearchCursos (palabra string) (dao.Curso, error){
+
+	//var curso dao.Curso
+
+//	result := Db.Where ("nombre = ?", palabra).First(&curso)
+
+//}

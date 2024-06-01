@@ -1,7 +1,7 @@
 package dao
 
 type Usuario struct {
-	UsuarioID    int    `gorm:"primary_key;AUTO_INCREMENT; not null"`
+	UsuarioID    int64    `gorm:"primary_key;AUTO_INCREMENT; not null"`
 	Nombre       string `gorm:"type:varchar(255)"`
 	Apellido     string `gorm:"type:varchar(255)"`
 	Email        string `gorm:"type:varchar(255)"`

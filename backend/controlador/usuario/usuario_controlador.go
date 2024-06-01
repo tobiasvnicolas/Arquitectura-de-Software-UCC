@@ -1,11 +1,11 @@
-package controlador
+package usuarioControlador
 
 import(
 	"github.com/gin-gonic/gin"
 	"fmt"
 	"net/http"
-	"Arquitectura-de-Software-UCC/backend/dominio/usuario"
-	"Arquitectura-de-Software-UCC/backend/servicios/usuario"
+	"Arquitectura-de-Software-UCC/backend/dominio"
+	"Arquitectura-de-Software-UCC/backend/servicios"
 	log "github.com/sirupsen/logrus"
 
 

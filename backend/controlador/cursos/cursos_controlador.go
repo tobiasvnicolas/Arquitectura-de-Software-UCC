@@ -1,10 +1,10 @@
-package controlador
+package cursosControlador
 
 import(
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"Arquitectura-de-Software-UCC/backend/dominio/cursos"
-	"Arquitectura-de-Software-UCC/backend/servicios/cursos"
+	"Arquitectura-de-Software-UCC/backend/dominio"
+	"Arquitectura-de-Software-UCC/backend/servicios"
 	"net/http"	
 	"strconv"
 
