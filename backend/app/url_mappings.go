@@ -19,7 +19,7 @@ func mapUrls() {
 	router.GET("/cursos/:id", cursoControlador.GetCursoById)
 
 	// INSCRIPCION
-
+	//router.POST("/inscribirse", usuarioControlador.Login)
 	log.Info("Finishing mappings configurations")
 
 }

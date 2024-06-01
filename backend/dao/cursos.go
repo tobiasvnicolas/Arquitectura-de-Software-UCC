@@ -1,4 +1,4 @@
-package modelo
+package dao
 
 type Curso struct {
 	CursoID     int64  `gorm:"primary_key;AUTO_INCREMENT"`
