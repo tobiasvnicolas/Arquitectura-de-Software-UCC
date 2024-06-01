@@ -11,14 +11,14 @@ var Db *gorm.DB
 
 type inscripcionCliente struct{}
 
-type inscripcionClienteInterface interface {
+type InscripcionClienteInterface interface {
 	CrearInscripcion(inscripcion dao.Inscripcion) dao.Inscripcion
 	GetInscripcionById(id int64) (dao.Inscripcion, error)
 	//tal vez no sea necesaria, pero por si acaso
 }
 
 var (
-	InscripcionCliente inscripcionClienteInterface
+	InscripcionCliente InscripcionClienteInterface
 )
 
 func init() {
