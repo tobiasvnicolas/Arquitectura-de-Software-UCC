@@ -3,6 +3,8 @@ package db
 import (
 	clienteUsuario "Arquitectura-de-Software-UCC/backend/clientes/usuario"
 	clienteCurso "Arquitectura-de-Software-UCC/backend/clientes/cursos"
+	clienteInscripcion "Arquitectura-de-Software-UCC/backend/clientes/inscripcion"
+
 	"Arquitectura-de-Software-UCC/backend/dao"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -34,6 +36,7 @@ func init() {
 	// We need to add all CLients that we build
 	clienteUsuario.Db = db
 	clienteCurso.Db = db
+	clienteInscripcion.Db = db
 
 }
 

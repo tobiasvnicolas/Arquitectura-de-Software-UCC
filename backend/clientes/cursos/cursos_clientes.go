@@ -14,7 +14,7 @@ type cursoCliente struct{}
 type CursoClienteInterface interface{
 	CrearCurso(curso dao.Curso) dao.Curso
 	GetCursoById(id int64) (dao.Curso, error)
-	//SearchCursos(palabra string) (dao.Curso, error)
+	SearchCursos(palabra string) ([]dao.Curso, error)
 }
 
 var(
@@ -52,10 +52,16 @@ func(s *cursoCliente) GetCursoById (id int64) (dao.Curso, error){
 
 }
 
-// func (s *cursoCliente) SearchCursos (palabra string) (dao.Curso, error){
+ func (s *cursoCliente) SearchCursos (palabra string) ([]dao.Curso, error){
 
-	//var curso dao.Curso
+	var cursos []dao.Curso
 
-//	result := Db.Where ("nombre = ?", palabra).First(&curso)
+	result := Db.Where ("nombre LIKE ? OR categoria LIKE ?", "%"+palabra+"%","%"+palabra+"%").Find(&cursos)
 
-//}
+	if result.Error != nil{
+		return cursos, result.Error
+	}
+
+	return cursos, nil
+
+}

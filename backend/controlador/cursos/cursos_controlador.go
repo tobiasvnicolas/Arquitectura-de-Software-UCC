@@ -6,6 +6,8 @@ import(
 	"Arquitectura-de-Software-UCC/backend/dominio"
 	"Arquitectura-de-Software-UCC/backend/servicios"
 	"net/http"	
+	"strings"
+	"fmt"
 	"strconv"
 
 )
@@ -51,5 +53,26 @@ func GetCursoById (c *gin.Context){
 	}
 
 	c.JSON(http.StatusOK, cursoData)
+
+}
+
+
+
+func SearchCursos (c *gin.Context){
+	palabra := strings.TrimSpace(c.Param("palabra"))
+
+	results, err := servicios.CursoServicio.SearchCursos(palabra)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, dominio.Resultado{
+			Mensaje: fmt.Sprintf("Error al buscar: %s", err.Error()),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, dominio.CursoBuscado{
+		Results: results,
+	})
+
 
 }
