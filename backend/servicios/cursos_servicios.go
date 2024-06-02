@@ -17,6 +17,7 @@ type cursoServiceInterface interface{
 	CrearCurso(newcurso dominio.CursoData) (dominio.CursoData, e.ApiError)
 	GetCursoById (id int64) (dominio.CursoData, e.ApiError)
 	SearchCursos (palabra string) ([]dominio.CursoData, e.ApiError)
+	GetCursosByIds (id []int64) ([]dominio.CursoData, e.ApiError)
 }
 
 var(
@@ -73,6 +74,31 @@ func (s *cursoServicio) SearchCursos (palabra string) ([]dominio.CursoData, e.Ap
 	palabras := strings.TrimSpace(palabra)
 
 	cursos, err := s.cursoCliente.SearchCursos(palabras)
+
+	if err != nil{
+		return nil, e.NewBadRequestApiError("Curso No Encontrado")
+	}
+
+	results := make([]dominio.CursoData, 0)
+	for _, curso := range cursos{
+			results = append(results, dominio.CursoData{
+
+				CursoID: curso.CursoID,
+				Nombre: curso.Nombre,
+				Descripcion: curso.Descripcion,
+				Categoria: curso.Categoria,
+		})
+	}
+
+	return results, nil
+
+
+}
+
+func (s *cursoServicio) GetCursosByIds (id []int64) ([]dominio.CursoData, e.ApiError){
+
+
+	cursos, err := s.cursoCliente.GetCursosByIds(id)
 
 	if err != nil{
 		return nil, e.NewBadRequestApiError("Curso No Encontrado")

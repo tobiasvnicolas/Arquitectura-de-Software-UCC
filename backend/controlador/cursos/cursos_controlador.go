@@ -76,3 +76,29 @@ func SearchCursos (c *gin.Context){
 
 
 }
+
+func GetCursosByIds (c *gin.Context){
+
+	var cursoids []int64
+
+	for _, idStr := range c.QueryArray("ids"){
+		id, err := strconv.ParseInt(idStr, 10, 64)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "ID de curso no válido"})
+			return
+		}
+		cursoids = append(cursoids, id)
+	}
+
+
+
+	cursoData, er := servicios.CursoServicio.GetCursosByIds(cursoids)
+
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusOK, cursoData)
+
+}

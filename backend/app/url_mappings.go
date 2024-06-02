@@ -24,6 +24,7 @@ func mapUrls(){
 
 	// INSCRIPCION
 	router.POST("/inscripcion", inscripcionControlador.CrearInscripcion)
+	router.GET("/inscripcion/:id", inscripcionControlador.GetInscripcionByUserId)
 	log.Info("Finishing mappings configurations")
 
 }

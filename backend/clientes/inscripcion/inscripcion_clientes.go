@@ -13,6 +13,7 @@ type inscripcionCliente struct{}
 
 type InscripcionClienteInterface interface {
 	CrearInscripcion(inscripcion dao.Inscripcion) dao.Inscripcion
+	GetInscripcionByUserId(id int64) ([]dao.Inscripcion, error)
 }
 
 var (
@@ -32,4 +33,18 @@ func (s *inscripcionCliente) CrearInscripcion(inscripcion dao.Inscripcion) dao.I
 
 	log.Debug("Inscripcion Creada: ", inscripcion.ID)
 	return inscripcion
+}
+
+func (s *inscripcionCliente) GetInscripcionByUserId (id int64) ([]dao.Inscripcion, error){
+
+	var inscripciones []dao.Inscripcion
+
+	result := Db.Where("usuario_id = ?", id).Find(&inscripciones)
+
+	if result.Error != nil{
+		return inscripciones, result.Error
+	}
+
+	return inscripciones, nil
+
 }

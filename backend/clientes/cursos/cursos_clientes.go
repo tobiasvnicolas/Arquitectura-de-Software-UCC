@@ -15,6 +15,7 @@ type CursoClienteInterface interface{
 	CrearCurso(curso dao.Curso) dao.Curso
 	GetCursoById(id int64) (dao.Curso, error)
 	SearchCursos(palabra string) ([]dao.Curso, error)
+	GetCursosByIds(id []int64) ([]dao.Curso, error)
 }
 
 var(
@@ -65,3 +66,20 @@ func(s *cursoCliente) GetCursoById (id int64) (dao.Curso, error){
 	return cursos, nil
 
 }
+
+
+func (s *cursoCliente) GetCursosByIds(id []int64) ([]dao.Curso, error){
+
+	var cursos []dao.Curso
+
+	result := Db.Where ("curso_id IN (?)", id).Find(&cursos)
+
+	if result.Error != nil{
+		return cursos, result.Error
+	}
+
+	return cursos, nil
+
+}
+
+
