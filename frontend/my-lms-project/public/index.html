@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Cursos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <button>
+    <h1>UniMasters</h1>
+    </button>
+    <nav>
+        <button>
+             <ul>
+            <li><a href="#courses">Mis Cursos</a></li>
+        </ul>
+        </button>
+       
+    </nav>
+</header>
+
+<main>
+    <!-- Pantalla de inicio -->
+    <section id="home">
+        <h2>Cursos Disponibles</h2>
+        <div class="course-list" id="course-list">
+            <!-- Listado de cursos se genera dinámicamente -->
+        </div>
+    </section>
+
+    <!-- Búsqueda de cursos -->
+    <section id="search">
+        <h2>Buscar Cursos</h2>
+        <input type="text" id="search-input" placeholder="Buscar por palabra clave o categoría">
+        <button onclick="searchCourses()">Buscar</button>
+        <div id="search-results" class="course-list">
+            <!-- Resultados de búsqueda -->
+        </div>
+    </section>
+
+    <!-- Detalle del curso -->
+    <section id="course-details" style="display: none;">
+        <h2>Detalle del Curso</h2>
+        <div id="course-info">
+            <!-- Información detallada del curso se carga dinámicamente -->
+        </div>
+        <button id="enroll-button" onclick="enrollCourse()">Inscribirse</button>
+    </section>
+
+    <!-- Mis cursos -->
+    <section id="my-courses">
+        <h2>Mis Cursos</h2>
+        <div class="course-list" id="my-course-list">
+            <!-- Listado de cursos inscritos -->
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Plataforma de Cursos</p>
+</footer>
+
+<script src="scripts.js"></script>
+</body>
+</html>
