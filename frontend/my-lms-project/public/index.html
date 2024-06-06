@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/html">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +9,13 @@
 <body>
 <header>
   <button>
-  <div class="logo-container">
-    <a href="index.html" class="logo-btn">
-      <img src="imagenes/logoUM.png" alt="Logo de UniMasters">
-    </a>
-  </div>
+    <div class="logo-container">
+      <a href="index.html" class="logo-btn">
+        <img src="imagenes/logoUM.png" alt="Logo de UniMasters">
+      </a>
+    </div>
   </button>
+
 
   <div class="search-container">
     <input type="text" id="search-input" placeholder="Buscar por palabra clave o categoría">
@@ -22,49 +23,37 @@
   </div>
 
   <nav>
-
     <ul>
-      <button> <li><a href="#courses">Mis Cursos</a></li>  </button>
-      <button><li><a href="#login">Login</a></li></button>
+      <button><li><a href="#courses">Mis Cursos</a></li> </button>
+      <button> <li><a href="#login">Login</a></li></button>
     </ul>
-
   </nav>
 </header>
 
 <main>
-    <!-- Pantalla de inicio -->
   <section id="home">
-
-
     <h2>Cursos Disponibles</h2>
-
-
     <div class="course-buttons">
       <button onclick="location.href='javascript.html'">JavaScript
-      <img src="imagenes/descarga%20(1).png">
+        <img src="imagenes/descarga%20(1).png" alt="JavaScript">
       </button>
-
-
       <button onclick="location.href='python.html'">Python
-      <img src="imagenes/descarga%20(1).jpg">
+        <img src="imagenes/descarga%20(1).jpg" alt="Python">
       </button>
       <button onclick="location.href='golang.html'">Golang
-      <img src="imagenes/descarga%20(3).png">
+        <img src="imagenes/descarga%20(3).png" alt="Golang">
       </button>
-
-
       <button onclick="location.href='react.html'">React
-      <img src="imagenes/descarga.jpg">
+        <img src="imagenes/descarga.jpg" alt="React">
       </button>
-
-
       <button onclick="location.href='cpp.html'">C++
-      <img src="imagenes/descarga.png">
+        <img src="imagenes/descarga.png" alt="C++">
       </button>
-
-  </div>
+      <button onclick="location.href='anothercourse.html'">Another Course
+        <img src="imagenes/anotherimage.png" alt="Another Course">
+      </button>
+    </div>
   </section>
-
 </main>
 
 <footer>
