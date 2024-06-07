@@ -10,28 +10,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func GetInscripcionbyID(c *gin.Context) {
 
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-
-	if err != nil {
-		log.Error(err.Error())
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	var inscripcionData dominio.InscripcionData
-
-	inscripcionData, er := servicios.InscripcionServicio.GetInscripcionById(id)
-
-	if er != nil {
-		c.JSON(er.Status(), er)
-		return
-	}
-
-	c.JSON(http.StatusOK, inscripcionData)
-
-}
 
 func CrearInscripcion(c *gin.Context) {
 	var newinscripcion dominio.InscripcionData
@@ -53,4 +32,25 @@ func CrearInscripcion(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, newinscripcion)
+}
+
+func GetInscripcionByUserId (c *gin.Context){
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+
+	if err != nil {
+		log.Error(err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+
+	cursoData, er := servicios.InscripcionServicio.GetInscripcionByUserId(id)
+
+	if er != nil {
+		c.JSON(er.Status(), gin.H{"error": er.Message()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"cursos": cursoData})
+
 }

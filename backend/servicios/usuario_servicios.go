@@ -1,28 +1,29 @@
 package servicios
 
-import (
+import(
 	client "Arquitectura-de-Software-UCC/backend/clientes/usuario"
 	"Arquitectura-de-Software-UCC/backend/dao"
 	"Arquitectura-de-Software-UCC/backend/dominio"
-	"crypto/md5"
-	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
+	"errors"
 	"strings"
+	"crypto/md5"
+	log "github.com/sirupsen/logrus"
 
 	e "Arquitectura-de-Software-UCC/backend/utils"
+
 )
 
-type usuarioServicio struct {
+type usuarioServicio struct{
 	usuarioCliente client.UsuarioClienteInterface
 }
 
 type usuarioServiceInterface interface {
-	Login(email string, password string) (string, error)
-	GetUsuariobyID(id int64) (dominio.UsuarioData, e.ApiError)
+	Login(email string, password string) (string , error)
 	GetUsuariobyEmail(email string) (dominio.UsuarioData, e.ApiError)
-	CrearUsuario(newusuario dominio.UsuarioData) (dominio.UsuarioData, e.ApiError)
+	CrearUsuario(newusuario dominio.UsuarioData) (dominio.UsuarioData,e.ApiError)
 }
+
 
 var (
 	UsuarioServicio usuarioServiceInterface
@@ -34,7 +35,7 @@ func initUsuarioService(usuarioCliente client.UsuarioClienteInterface) usuarioSe
 	return service
 }
 
-func init() {
+func init(){
 	UsuarioServicio = initUsuarioService(client.UsuarioCliente)
 }
 
@@ -42,52 +43,32 @@ func generateHash(password string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(password)))
 }
 
-func (s *usuarioServicio) Login(email string, password string) (string, error) {
+func(s *usuarioServicio) Login(email string, password string) (string,error){
 
-	if strings.TrimSpace(email) == "" {
+	if strings.TrimSpace(email) == ""{
 		return "", errors.New("Debe ingresar un email.")
 	}
 
-	if strings.TrimSpace(password) == "" {
+	if strings.TrimSpace(password) == ""{
 		return "", errors.New("Debe ingresar una contraseña.")
 	}
 
-	hash := generateHash(password)
-	log.Println("Hash de la contraseña ingresada:", hash)
+	hash :=  generateHash(password)
+	log.Println("Hash de la contraseña ingresada:", hash) 
 
-	usuarioo, err := s.usuarioCliente.GetUsuariobyEmail(email)
+	usuarioo, err :=  s.usuarioCliente.GetUsuariobyEmail(email)
 
-	if err != nil {
+	if err != nil{
 		return "", fmt.Errorf("Hubo un error al buscar el usuario en la Base de Datos.")
-
+	
 	}
 
 	if hash != usuarioo.Passwordhash {
 		return "", fmt.Errorf("Contraseña incorrecta.")
 	}
 
-	token := hash
+	token := hash;
 	return token, nil
-}
-
-func (s *usuarioServicio) GetUsuariobyID(id int64) (dominio.UsuarioData, e.ApiError) {
-
-	var usuarioo dao.Usuario
-	usuarioo, err := s.usuarioCliente.GetUsuariobyID(id)
-	var us dominio.UsuarioData
-
-	if err != nil {
-		return us, e.NewBadRequestApiError("Usuario no encontrado")
-	}
-
-	us.Nombre = usuarioo.Nombre
-	us.Apellido = usuarioo.Apellido
-	us.Tipo = usuarioo.Tipo
-	us.Email = usuarioo.Email
-	us.Passwordhash = usuarioo.Passwordhash
-	us.UsuarioID = usuarioo.UsuarioID
-
-	return us, nil
 }
 
 func (s *usuarioServicio) GetUsuariobyEmail(email string) (dominio.UsuarioData, e.ApiError) {
@@ -99,18 +80,19 @@ func (s *usuarioServicio) GetUsuariobyEmail(email string) (dominio.UsuarioData, 
 	if err != nil {
 		return us, e.NewBadRequestApiError("Usuario no encontrado")
 	}
-
+	
 	us.Nombre = usuarioo.Nombre
 	us.Apellido = usuarioo.Apellido
 	us.Tipo = usuarioo.Tipo
 	us.Email = usuarioo.Email
 	us.Passwordhash = usuarioo.Passwordhash
 	us.UsuarioID = usuarioo.UsuarioID
+	
 
 	return us, nil
 }
 
-func (s *usuarioServicio) CrearUsuario(newusuario dominio.UsuarioData) (dominio.UsuarioData, e.ApiError) {
+func (s *usuarioServicio) CrearUsuario (newusuario dominio.UsuarioData) (dominio.UsuarioData,e.ApiError) { 
 
 	var user dao.Usuario
 
@@ -119,7 +101,8 @@ func (s *usuarioServicio) CrearUsuario(newusuario dominio.UsuarioData) (dominio.
 	user.Email = newusuario.Email
 
 	hash := generateHash(newusuario.Passwordhash)
-	log.Println("Hash de la contraseña ingresada:", hash)
+	log.Println("Hash de la contraseña ingresada:", hash) 
+
 
 	user.Passwordhash = hash
 	newusuario.Passwordhash = user.Passwordhash
@@ -132,3 +115,4 @@ func (s *usuarioServicio) CrearUsuario(newusuario dominio.UsuarioData) (dominio.
 	return newusuario, nil
 
 }
+

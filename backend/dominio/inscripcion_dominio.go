@@ -9,6 +9,6 @@ type InscripcionData struct {
 type InscripcionesData []InscripcionData
 
 type InscripcionRequest struct {
-	UserID   int64 `json:"user_id"`
+	UserID   int64 `json:"usuario_id"`
 	CourseID int64 `json:"curso_id"`
 }

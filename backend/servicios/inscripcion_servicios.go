@@ -9,31 +9,34 @@ import (
 
 type inscripcionServicio struct {
 	inscripcionCliente client.InscripcionClienteInterface
+	cursoServicio cursoServiceInterface
+
 }
 
 type inscripcionServiceInterface interface {
 	CrearInscripcion(newcurso dominio.InscripcionData) (dominio.InscripcionData, e.ApiError)
-	GetInscripcionById(id int64) (dominio.InscripcionData, e.ApiError)
+	GetInscripcionByUserId (id int64) ([]dominio.CursoData, e.ApiError)
 }
 
 var (
 	InscripcionServicio inscripcionServiceInterface
 )
 
-func initInscripcionService(inscripcionCliente client.InscripcionClienteInterface) inscripcionServiceInterface {
-	service := new(inscripcionServicio)
-	service.inscripcionCliente = inscripcionCliente
+func initInscripcionService(inscripcionCliente client.InscripcionClienteInterface, cursoServicio cursoServiceInterface) inscripcionServiceInterface {
+	service := &inscripcionServicio{
+        inscripcionCliente: inscripcionCliente,
+        cursoServicio:      cursoServicio,
+    }
 	return service
 }
 
 func init() {
-	InscripcionServicio = initInscripcionService(client.InscripcionCliente)
+	InscripcionServicio = initInscripcionService(client.InscripcionCliente, CursoServicio)
 }
 
 func (s *inscripcionServicio) CrearInscripcion(newinscripcion dominio.InscripcionData) (dominio.InscripcionData, e.ApiError) {
 	var inscripcion dao.Inscripcion
 
-	inscripcion.ID = newinscripcion.ID
 	inscripcion.UsuarioID = newinscripcion.UsuarioID
 	inscripcion.CursoID = newinscripcion.CursoID
 
@@ -44,21 +47,24 @@ func (s *inscripcionServicio) CrearInscripcion(newinscripcion dominio.Inscripcio
 	return newinscripcion, nil
 }
 
-func (s *inscripcionServicio) GetInscripcionById(id int64) (dominio.InscripcionData, e.ApiError) {
-	var inscripcion dao.Inscripcion
+func (s *inscripcionServicio) GetInscripcionByUserId (id int64) ([]dominio.CursoData, e.ApiError){
 
-	inscripcion, err := s.inscripcionCliente.GetInscripcionById(id)
+	inscripciones, err := s.inscripcionCliente.GetInscripcionByUserId(id)
 
-	var ins dominio.InscripcionData
-
-	if err != nil {
-		return ins, e.NewBadRequestApiError("Inscripcion No Encontrada")
+	if err != nil{
+		return nil, e.NewBadRequestApiError("Inscripciones no encontradas")
 	}
 
-	ins.ID = inscripcion.ID
-	ins.UsuarioID = inscripcion.UsuarioID
-	ins.CursoID = inscripcion.CursoID
+	var cursoids []int64
+	for _, inscripcion := range inscripciones {
+		cursoids = append (cursoids, inscripcion.CursoID)
+	}
 
-	return ins, nil
+	cursos , err := s.cursoServicio.GetCursosByIds(cursoids)
+	
+	if err != nil{
+		return nil, e.NewBadRequestApiError("Error")
+	}
+	return cursos, nil
 
 }
