@@ -49,10 +49,10 @@ func (s *usuarioCliente) CrearUsuario(user dao.Usuario) dao.Usuario {
 
 }
 
-func IsAdmin(tipo string) bool {
+func IsAdmin(tipo string, id int64) bool {
 	var usuario dao.Usuario
 
-	Db.Where("tipo = ?", tipo).First(&usuario)
+	Db.Where("usuario_id = ?", id).First(&usuario)
 
 	if usuario.Tipo == "administrador" {
 		return true
