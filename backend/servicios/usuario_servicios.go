@@ -8,6 +8,8 @@ import(
 	"errors"
 	"strings"
 	"crypto/md5"
+	"github.com/golang-jwt/jwt/v4"
+	"time"
 	log "github.com/sirupsen/logrus"
 
 	e "Arquitectura-de-Software-UCC/backend/utils"
@@ -43,6 +45,19 @@ func generateHash(password string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(password)))
 }
 
+var jwtSecreto  =  []byte("llave_secreta")
+
+func generarJWT (email string) (string, error){
+	claims := jwt.MapClaims{
+		"email":email,
+		"exp": time.Now().Add(time.Hour * 72).Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	return token.SignedString(jwtSecreto)
+}
+
 func(s *usuarioServicio) Login(email string, password string) (string,error){
 
 	if strings.TrimSpace(email) == ""{
@@ -67,7 +82,11 @@ func(s *usuarioServicio) Login(email string, password string) (string,error){
 		return "", fmt.Errorf("Contraseña incorrecta.")
 	}
 
-	token := hash;
+	token, err := generarJWT(email)
+
+	if err != nil{
+		return "", fmt.Errorf("Error al generar JWT token: %w", err)
+	}
 	return token, nil
 }
 
