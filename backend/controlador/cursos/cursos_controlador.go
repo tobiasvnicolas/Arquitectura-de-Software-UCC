@@ -6,6 +6,8 @@ import(
 	"Arquitectura-de-Software-UCC/backend/dominio"
 	"Arquitectura-de-Software-UCC/backend/servicios"
 	"net/http"	
+	"strings"
+	"fmt"
 	"strconv"
 
 )
@@ -44,6 +46,53 @@ func GetCursoById (c *gin.Context){
 	var cursoData dominio.CursoData
 
 	cursoData, er := servicios.CursoServicio.GetCursoById(id)
+
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusOK, cursoData)
+
+}
+
+
+
+func SearchCursos (c *gin.Context){
+	palabra := strings.TrimSpace(c.Param("palabra"))
+
+	results, err := servicios.CursoServicio.SearchCursos(palabra)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, dominio.Resultado{
+			Mensaje: fmt.Sprintf("Error al buscar: %s", err.Error()),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, dominio.CursoBuscado{
+		Results: results,
+	})
+
+
+}
+
+func GetCursosByIds (c *gin.Context){
+
+	var cursoids []int64
+
+	for _, idStr := range c.QueryArray("ids"){
+		id, err := strconv.ParseInt(idStr, 10, 64)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "ID de curso no válido"})
+			return
+		}
+		cursoids = append(cursoids, id)
+	}
+
+
+
+	cursoData, er := servicios.CursoServicio.GetCursosByIds(cursoids)
 
 	if er != nil {
 		c.JSON(er.Status(), er)
