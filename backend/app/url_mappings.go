@@ -4,13 +4,14 @@ import(
 	usuarioControlador 	"Arquitectura-de-Software-UCC/backend/controlador/usuario"
 	inscripcionControlador "Arquitectura-de-Software-UCC/backend/controlador/inscripcion"
 	cursoControlador 	"Arquitectura-de-Software-UCC/backend/controlador/cursos"
-
+	cors "Arquitectura-de-Software-UCC/backend/controlador"
 	log "github.com/sirupsen/logrus"
 
 )
 
 func mapUrls(){
 
+	router.Use(cors.AllowCORS) 
 	//USUARIOS
 	router.POST("/login", usuarioControlador.Login)
 	router.GET("/usuario/:email", usuarioControlador.GetUsuariobyEmail)

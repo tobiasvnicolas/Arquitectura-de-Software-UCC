@@ -1,0 +1,47 @@
+/*Color del fondo de pantalla*/
+.fondo{
+    animation: gradientAnimation 5s ease-in-out infinite;
+    background: linear-gradient(45deg,#593ac9, #1e78d1, #6cec81);
+    background-size: 300% 300%; /* Hace que la animación sea visible */
+    
+
+}
+
+
+  @keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+/*Todo lo que tiene que ver con las tarjetas*/
+.tarjetas{
+    width: 80%;
+    margin:70px auto;
+   
+
+}
+    /*El transition y el transform se utilizan para hacer el efecto de zoom de las tarjetas*/
+    .card{
+        transition: all 0.3s;
+        margin-top: 60px ;
+        margin-bottom: 60px;
+
+    }
+    .card:hover{
+        transform: scale(1.08);
+
+    }
+
+/*Le damos estilo al pie de pag*/
+.piePagina{
+    margin-top: 180px;
+    font-family: 'Cambria', 'Times', serif;
+}
+
