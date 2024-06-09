@@ -102,3 +102,17 @@ func GetCursosByIds (c *gin.Context){
 	c.JSON(http.StatusOK, cursoData)
 
 }
+
+func GetCursos (c *gin.Context){
+
+
+	cursoData, er := servicios.CursoServicio.GetCursos()
+
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusOK, cursoData)
+
+}

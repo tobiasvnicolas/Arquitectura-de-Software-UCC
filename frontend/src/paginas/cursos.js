@@ -47,7 +47,7 @@ const Cursos = () => {
     
                     <div class="card-body">
     
-                        <h5 class="card-title">HTML desde 0</h5>
+                        <h5 class="card-title"><a href={"/cursos/" + 1}>HTML desde 0</a></h5>
     
                         <p class="card-text">Nuestro programa está diseñado para equiparte con habilidades avanzadas en desarrollo backend utilizando JAVA,
                         incluyendo frameworks como Spring Boot, manejo de bases de datos, y mejores prácticas en seguridad y diseño de software.</p>

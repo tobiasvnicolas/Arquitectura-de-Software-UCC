@@ -1,56 +1,44 @@
-import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import 'react-responsive-carousel/lib/styles/carousel.css';
-import { Carousel } from 'react-responsive-carousel';
-import './carrousel.css';
+import React, { useEffect, useState } from 'react';
 
+function Course() {
+  const { id } = useParams();
+  const [ curso, setCourse ] = useState({});
 
-const CarruselDeCursos = () => {
-    const { id } = useParams();
-    const [cursos, setCursos] = useState([]);
-
-    const fetchCursos = async () => {
-       
-            const response = await fetch(`http://localhost:3000/cursos/${id}`);
-            const data = await response.json();
-            console.log(data);
-
-            if (data && data.busqueda) {
-                const cursosConIds = data.busqueda.map((curso, index) => ({
-                    ...curso,
-                    id: curso.curso_id, // Asigna un id único, empezando desde 1 (si es necesario)
-                }));
-                setCursos(cursosConIds);
-            } else {
-                console.error('Error: Estructura de datos incorrecta en la respuesta');
-            }
-     
-    } 
-
-    useEffect(()=>{
-        fetchCursos()
-    });
-       
-   
-
-    if (cursos.length === 0) {
-        return <div>Cargando...</div>;
+  useEffect(() => {
+    if (id == null) {
+      return
     }
+    console.log(`Fetching data from http://localhost:8080/cursos/${id}`)
+    // Fetch data from the API
+    fetch(`http://localhost:8080/cursos/${id}`)
+      .then(response => response.json())
+      .then(data => setCourse(data))
+      .catch(error => console.error('Error fetching courses:', error));
+  }, [curso]);
 
-    return (
-        <Carousel>
-            {cursos.map((curso) => (
-                <div key={curso.curso_id}>
-                    <div className="legend">
-                        <h3>{curso.nombre}</h3>
-                        <p>{curso.descripcion}</p>
-                        <p>{curso.categoria}</p>
-                    </div>
-                </div>
-            ))}
-        </Carousel>
-    );
-};
+  return (
+    <>
+      <div className="Courses">
+        {curso != null ? (
+          <>
+            <div key={curso.curso_id} className="Course">
+                <>
+                  <div className="Course-details">
+                    <h1 className="Course-title">{curso.nombre}</h1>
+                    <p className="Course-description">{curso.descripcion}</p>
+                    <p className="Course-category"><strong>{curso.categoria}</strong></p>
+                  </div>
+                </>
+            </div>
+            <form><input type="submit" value="Subscribe"/></form>
+          </>
+        ) : (
+          <p>Loading course...</p>
+        )}
+      </div>
+    </>
+  );
+}
 
-export default CarruselDeCursos;
-
+export default Course;

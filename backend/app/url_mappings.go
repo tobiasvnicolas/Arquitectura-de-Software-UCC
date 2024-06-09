@@ -21,7 +21,7 @@ func mapUrls(){
 	router.POST("/cursos", cursoControlador.CrearCurso)
 	router.GET("/cursos/:id", cursoControlador.GetCursoById)
 	router.GET("/cursos/buscar/:palabra", cursoControlador.SearchCursos)
-
+	router.GET("/cursos/todos", cursoControlador.GetCursos)
 
 	// INSCRIPCION
 	router.POST("/inscripcion", inscripcionControlador.CrearInscripcion)
