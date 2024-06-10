@@ -7,7 +7,7 @@
     align-items: center;
     height: 100vh;
     animation: gradientAnimation 5s ease-in-out infinite;
-    background: linear-gradient(45deg,#593ac9, #1e78d1, #6cec81);
+    background: linear-gradient(45deg, #5a3ae7, #7746d1, #ac44e9);
     background-size: 300% 300%; /* Hace que la animación sea visible */}
 
 .Course {
@@ -55,7 +55,7 @@
 }
 
 .carousel .control-dots .dot.selected {
-    background: #89a8c4;
+    background: #a089c4;
 }
 
 .carousel .carousel-status {
@@ -91,7 +91,7 @@
 .Curso h3 {
     margin-top: 15px;
     font-size: 1.5em;
-    color: #0324e0;
+    color: #5803e0;
 }
 
 .Curso p {
