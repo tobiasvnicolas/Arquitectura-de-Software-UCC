@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import   './Navegador.css';
+import   './NavegadorHome.css';
 
-const Navegador = ({ onSearch }) => {
+const NavegadorHome = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event) => {
@@ -16,25 +16,14 @@ const Navegador = ({ onSearch }) => {
 
   return (
     <nav className="navbar">
+      <h2 >CodeWave Learning</h2>
       <ul className="navlinks">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/Cursos">Cursos</Link></li>
+        <li><Link to="/home">Home</Link></li>
         <li><Link to="/cursos/:id">Registrarse</Link></li>
         <li><Link to="/cursos/todos">Iniciar Sesión</Link></li>
-        <li>
-          <form onSubmit={handleSearchSubmit}>
-            <input 
-              type="text" 
-              placeholder="Search..." 
-              value={searchTerm} 
-              onChange={handleSearchChange} 
-            />
-            <button type="submit">Search</button>
-          </form>
-        </li>
-      </ul>
+        </ul>
     </nav>
   );
 };
 
-export default Navegador;
+export default NavegadorHome;

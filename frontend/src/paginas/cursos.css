@@ -1,47 +1,100 @@
-/*Color del fondo de pantalla*/
-.fondo{
+/* General styles for the carousel and courses */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
+
+.Courses {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     animation: gradientAnimation 5s ease-in-out infinite;
     background: linear-gradient(45deg,#593ac9, #1e78d1, #6cec81);
-    background-size: 300% 300%; /* Hace que la animación sea visible */
-    
+    background-size: 300% 300%; /* Hace que la animación sea visible */}
 
-}
-
-
-  @keyframes gradientAnimation {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-/*Todo lo que tiene que ver con las tarjetas*/
-.tarjetas{
+.Course {
     width: 80%;
-    margin:70px auto;
-   
-
-}
-    /*El transition y el transform se utilizan para hacer el efecto de zoom de las tarjetas*/
-    .card{
-        transition: all 0.3s;
-        margin-top: 60px ;
-        margin-bottom: 60px;
-
-    }
-    .card:hover{
-        transform: scale(1.08);
-
-    }
-
-/*Le damos estilo al pie de pag*/
-.piePagina{
-    margin-top: 180px;
-    font-family: 'Cambria', 'Times', serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(216, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* Carousel specific styles */
+.carousel .carousel-slider {
+    border-radius: 8px;
+}
+
+.carousel .control-arrow,
+.carousel.carousel-slider .control-arrow {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.carousel .control-arrow:hover {
+    opacity: 1;
+}
+
+.carousel .control-dots .dot {
+    background: #310303;
+    box-shadow: rgb(0, 0, 5);
+}
+
+.carousel .control-dots .dot.selected {
+    background: #89a8c4;
+}
+
+.carousel .carousel-status {
+    display: none;
+}
+
+.carousel .slide {
+    background: none;
+    text-align: center;
+}
+
+.carousel .slide img {
+    display: inline-block;
+    max-height: 500px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+/* Custom styles for Curso component */
+.Curso {
+    padding: 10px;
+    font-family: DM Serif Text    , sans-serif;
+
+}
+
+.Curso img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.Curso h3 {
+    margin-top: 15px;
+    font-size: 1.5em;
+    color: #0324e0;
+}
+
+.Curso p {
+    font-size: 1em;
+    color: #666;
+}

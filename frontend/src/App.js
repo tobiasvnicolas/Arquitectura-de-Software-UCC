@@ -1,8 +1,9 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navegador from './componentes/Navegador';
-import Cursos from './paginas/cursos';
-import Course from './paginas/carrousel';
+import NavegadorHome from './componentes/NavegadorHome';
+import CarruselDeCursos from './paginas/cursos';
+import Home from './paginas/home';
+
 
 import { useState } from 'react';
 
@@ -12,10 +13,10 @@ function App() {
   return (
     <div>
       <Router>
-        <Navegador onSearch={setSearchTerm} />
+        <NavegadorHome onSearch={setSearchTerm} />
         <Routes>
-          <Route exact path="/cursos" element={<Cursos />} />
-          <Route exact path="/cursos/:id" element={<Course />} /> 
+          <Route exact path="/home" element={<Home />} /> 
+          <Route exact path="/cursos/todos" element={<CarruselDeCursos />} /> 
 
         </Routes>
       </Router>

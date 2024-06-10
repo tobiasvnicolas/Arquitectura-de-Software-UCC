@@ -1,92 +1,67 @@
-const courses = [
-    { id: 1, title: "Curso de HTML", instructor: "Juan Pérez", duration: "4 semanas", requirements: "Ninguno", description: "Aprende HTML desde cero." },
-    { id: 2, title: "Curso de JavaScript", instructor: "María Gómez", duration: "6 semanas", requirements: "HTML básico", description: "Aprende JavaScript y desarrolla interactividad en la web." },
-    { id: 3, title: "Curso de C++", instructor: "Carlos Sánchez", duration: "8 semanas", requirements: "Programación básica", description: "Aprende C++ y sus aplicaciones." },
-    { id: 4, title: "Curso de GoLang", instructor: "Ana López", duration: "5 semanas", requirements: "Programación intermedia", description: "Aprende GoLang para el desarrollo de software eficiente." },
-    { id: 5, title: "Curso de Python", instructor: "Pedro Jiménez", duration: "7 semanas", requirements: "Ninguno", description: "Aprende Python y sus múltiples aplicaciones." },
-];
+import React, { useState, useEffect } from 'react';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import './home.css';
+import AutoCarousel from './autocarousel';
+import home1 from '../img/home1.jpg'
+import home3 from '../img/home3.jpg'
+import home4 from '../img/home4.jpg'
 
-let enrolledCourses = [];
+const Home = () => {
+    const images = [home1, home3, home4];
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadCourses();
-    loadMyCourses();
-});
+    return (
+        <div className="home-container">
+            <header className="header">
+                <h1> CodeWave Learning</h1>
+            </header>
 
-function loadCourses() {
-    const courseList = document.getElementById('course-list');
-    courseList.innerHTML = '';
-    courses.forEach(course => {
-        const courseItem = document.createElement('div');
-        courseItem.className = 'course-item';
-        courseItem.innerHTML = `
-            <h3>${course.title}</h3>
-            <p>Instructor: ${course.instructor}</p>
-            <button onclick="viewCourseDetails(${course.id})">Ver Detalles</button>
-        `;
-        courseList.appendChild(courseItem);
-    });
-}
+            <div className="content-carousel-container">
+                <div className="content-container">
+                    <section className="section">
+                        <h2 className="section-title">Acerca de Nosotros</h2>
+                        <p className="section-content">
+                        En CodeWave Learning, nos especializamos en ofrecer una amplia gama de cursos de programación diseñados para personas de todos los niveles, desde principiantes que dan sus primeros pasos en la programación hasta expertos que buscan perfeccionar sus habilidades.
+                         Nuestra plataforma está diseñada para proporcionar una experiencia de aprendizaje interactiva y efectiva, centrada en ayudarte a dominar los lenguajes más relevantes en el mundo de la tecnología.
+                        </p>
+                    </section>
+                    <section className="section">
+                        <h2 className="section-title">Nuestros Cursos</h2>
+                        <p className="section-content">
+                            Explora nuestros cursos en diversas tecnologías como JavaScript, Python, Java,
+                            y mucho más. Cada curso está diseñado para ofrecer una experiencia de aprendizaje
+                            completa y práctica.
+                        </p>
+                    </section>
+                </div>
 
-function searchCourses() {
-    const searchInput = document.getElementById('search-input').value.toLowerCase();
-    const searchResults = document.getElementById('search-results');
-    searchResults.innerHTML = '';
 
-    const filteredCourses = courses.filter(course =>
-        course.title.toLowerCase().includes(searchInput) ||
-        course.description.toLowerCase().includes(searchInput)
+                <div className="carousel-container">
+                    <AutoCarousel images={images} />
+                </div>
+            </div>
+            <br/><br/><br/><br/><br/>
+            <div className="mision">
+                    <div className="mision-container">
+                            <section className="section">
+                                <h2 className="section-title">Objetivos</h2>
+                                <p className="section-content">
+                                <br/>
+                                • Variedad y Profundidad: Ofrecemos cursos exhaustivos que cubren desde los conceptos básicos hasta temas avanzados en lenguajes como HTML, C++ y Python, así como otras tecnologías y frameworks relevantes en la industria.
+                                <br/><br/>
+                                • Accesibilidad y Flexibilidad: Nuestros cursos están diseñados para ser accesibles desde cualquier lugar y en cualquier momento, permitiéndote aprender a tu propio ritmo y según tu agenda.
+                                <br/><br/>
+                                • Enfoque Práctico: Fomentamos un aprendizaje práctico mediante proyectos y ejercicios que te permiten aplicar los conocimientos adquiridos en situaciones reales.
+                                <br/><br/>
+                                • Apoyo y Comunidad: Estamos comprometidos a ofrecer un soporte integral, tanto a través de nuestros instructores como a través de una comunidad activa de estudiantes que comparten tus intereses y metas.
+                                </p>
+                            </section>
+                         
+                     </div>
+            </div>
+
+
+        </div>
     );
+};
 
-    filteredCourses.forEach(course => {
-        const courseItem = document.createElement('div');
-        courseItem.className = 'course-item';
-        courseItem.innerHTML = `
-            <h3>${course.title}</h3>
-            <p>Instructor: ${course.instructor}</p>
-            <button onclick="viewCourseDetails(${course.id})">Ver Detalles</button>
-        `;
-        searchResults.appendChild(courseItem);
-    });
-}
-
-function viewCourseDetails(courseId) {
-    const course = courses.find(course => course.id === courseId);
-    const courseDetails = document.getElementById('course-details');
-    const courseInfo = document.getElementById('course-info');
-
-    courseInfo.innerHTML = `
-        <h3>${course.title}</h3>
-        <p>Descripción: ${course.description}</p>
-        <p>Instructor: ${course.instructor}</p>
-        <p>Duración: ${course.duration}</p>
-        <p>Requisitos: ${course.requirements}</p>
-    `;
-    document.getElementById('enroll-button').setAttribute('onclick', `enrollCourse(${course.id})`);
-    courseDetails.style.display = 'block';
-}
-
-function enrollCourse(courseId) {
-    const course = courses.find(course => course.id === courseId);
-    if (!enrolledCourses.includes(course)) {
-        enrolledCourses.push(course);
-        alert(`Te has inscrito en el curso: ${course.title}`);
-        loadMyCourses();
-    } else {
-        alert('Ya estás inscrito en este curso.');
-    }
-}
-
-function loadMyCourses() {
-    const myCourseList = document.getElementById('my-course-list');
-    myCourseList.innerHTML = '';
-    enrolledCourses.forEach(course => {
-        const courseItem = document.createElement('div');
-        courseItem.className = 'course-item';
-        courseItem.innerHTML = `
-            <h3>${course.title}</h3>
-            <button onclick="viewCourseDetails(${course.id})">Ver Detalles</button>
-        `;
-        myCourseList.appendChild(courseItem);
-    });
-}
+export default Home;
