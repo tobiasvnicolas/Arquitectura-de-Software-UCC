@@ -16,6 +16,8 @@ type CursoClienteInterface interface{
 	GetCursoById(id int64) (dao.Curso, error)
 	SearchCursos(palabra string) ([]dao.Curso, error)
 	GetCursosByIds(id []int64) ([]dao.Curso, error)
+	GetCursos() ([]dao.Curso, error)
+
 }
 
 var(
@@ -82,4 +84,18 @@ func (s *cursoCliente) GetCursosByIds(id []int64) ([]dao.Curso, error){
 
 }
 
+
+func (s *cursoCliente) GetCursos() ([]dao.Curso, error){
+
+	var cursos []dao.Curso
+
+	result := Db.Find(&cursos)
+
+	if result.Error != nil{
+		return cursos, result.Error
+	}
+
+	return cursos, nil
+
+}
 
