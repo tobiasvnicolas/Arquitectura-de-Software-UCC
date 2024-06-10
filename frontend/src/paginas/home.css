@@ -11,7 +11,7 @@
     min-height: 100vh; /* Asegurar altura mínima para ocupar toda la pantalla */
     padding: 20px;
     font-family: DM Serif Text    , sans-serif;
-   
+    grid-template-columns: 1fr 1fr;
     background: linear-gradient(45deg, #5a3ae7, #7746d1, #ac44e9);
     background-size: 300% 300%; /* Hace que la animación sea visible */
     animation: gradientAnimation 5s ease-in-out infinite;
@@ -101,3 +101,10 @@
         background-position: 0% 50%;
     }
 }
+
+  /* Estilos responsive */
+  @media screen and (max-width: 768px) {
+    .home-container {
+      grid-template-columns: 1fr;
+    }
+ }
