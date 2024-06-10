@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavegadorHome from './componentes/NavegadorHome';
 import CarruselDeCursos from './paginas/cursos';
 import Home from './paginas/home';
+import Resultados from './paginas/resultados';
 
 
 import { useState } from 'react';
@@ -15,8 +16,10 @@ function App() {
       <Router>
         <NavegadorHome onSearch={setSearchTerm} />
         <Routes>
-          <Route exact path="/home" element={<Home />} /> 
+          <Route exact path="/" element={<Home />} /> 
           <Route exact path="/cursos/todos" element={<CarruselDeCursos />} /> 
+          <Route exact path="/cursos/buscar" element={<Resultados searchTerm={searchTerm}/>} /> 
+
 
         </Routes>
       </Router>

@@ -59,7 +59,7 @@ func GetCursoById (c *gin.Context){
 
 
 func SearchCursos (c *gin.Context){
-	palabra := strings.TrimSpace(c.Param("palabra"))
+	palabra := strings.TrimSpace(c.Query("palabra"))
 
 	results, err := servicios.CursoServicio.SearchCursos(palabra)
 

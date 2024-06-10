@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import   './NavegadorHome.css';
+import { Link, useNavigate  } from 'react-router-dom';
+import './NavegadorHome.css';
 
 const NavegadorHome = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [palabra, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -11,17 +12,30 @@ const NavegadorHome = ({ onSearch }) => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    onSearch(searchTerm);
+    onSearch(palabra);
+    navigate(`/cursos/buscar?palabra=${palabra}`);
+    setSearchTerm(''); 
+    // Limpiar el término de búsqueda después de buscar
   };
 
   return (
     <nav className="navbar">
-      <h2 >CodeWave Learning</h2>
+      <h2>CodeWave Learning</h2>
       <ul className="navlinks">
-        <li><Link to="/home">Home</Link></li>
-        <li><Link to="/cursos/:id">Registrarse</Link></li>
-        <li><Link to="/cursos/todos">Iniciar Sesión</Link></li>
-        </ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/cursos/todos">Cursos</Link></li>
+        <li>
+          <form onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              value={palabra}
+              onChange={handleSearchChange}
+              placeholder="Buscar cursos..."
+            />
+            <button type="submit">Buscar</button>
+          </form>
+        </li>
+      </ul>
     </nav>
   );
 };
