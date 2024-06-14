@@ -9,7 +9,7 @@ const MisCursos = () => {
     useEffect(() => {
         const fetchCursos = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/cursos/todos');
+                const response = await axios.get('http://localhost:8080/inscripcion/:id');
                 setCursos(response.data);
             } catch (error) {
                 console.error('Error fetching cursos:', error);

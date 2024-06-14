@@ -1,19 +1,19 @@
 package app
 
-import(
-	usuarioControlador 	"Arquitectura-de-Software-UCC/backend/controlador/usuario"
+import (
+	cursoControlador "Arquitectura-de-Software-UCC/backend/controlador/cursos"
 	inscripcionControlador "Arquitectura-de-Software-UCC/backend/controlador/inscripcion"
-	cursoControlador 	"Arquitectura-de-Software-UCC/backend/controlador/cursos"
+	usuarioControlador "Arquitectura-de-Software-UCC/backend/controlador/usuario"
 	log "github.com/sirupsen/logrus"
-
 )
 
-func mapUrls(){
+func mapUrls() {
 
 	//USUARIOS
 	router.POST("/login", usuarioControlador.Login)
 	router.GET("/usuario/:email", usuarioControlador.GetUsuariobyEmail)
 	router.POST("/usuario", usuarioControlador.CrearUsuario)
+	//router.GET("/usuario/miscursos", usuarioControlador.GetUsuarioMiscursos)
 
 	// CURSOS
 	router.POST("/cursos", cursoControlador.CrearCurso)

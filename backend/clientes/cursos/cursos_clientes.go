@@ -1,48 +1,48 @@
 package cursos
 
-import(
-"Arquitectura-de-Software-UCC/backend/dao"
-"github.com/jinzhu/gorm"
-log "github.com/sirupsen/logrus"
+import (
+	"Arquitectura-de-Software-UCC/backend/dao"
+	"github.com/jinzhu/gorm"
+	log "github.com/sirupsen/logrus"
 )
-
 
 var Db *gorm.DB
 
 type cursoCliente struct{}
 
-type CursoClienteInterface interface{
+type CursoClienteInterface interface {
 	CrearCurso(curso dao.Curso) dao.Curso
 	GetCursoById(id int64) (dao.Curso, error)
 	SearchCursos(palabra string) ([]dao.Curso, error)
 	GetCursosByIds(id []int64) ([]dao.Curso, error)
 	GetCursos() ([]dao.Curso, error)
+	//GetCursosByUsuarioid(id int64)([]dao.Curso, error)
 
 }
 
-var(
+var (
 	CursoCliente CursoClienteInterface
 )
 
-func init(){
+func init() {
 	CursoCliente = &cursoCliente{}
 }
 
-func (s *cursoCliente) CrearCurso (curso dao.Curso) dao.Curso{
+func (s *cursoCliente) CrearCurso(curso dao.Curso) dao.Curso {
 	result := Db.Create(&curso)
 
-	if result.Error != nil{
-		log.Error ("")
+	if result.Error != nil {
+		log.Error("")
 	}
 
 	log.Debug("Curso Creado: ", curso.CursoID)
 	return curso
 }
 
-func(s *cursoCliente) GetCursoById (id int64) (dao.Curso, error){
+func (s *cursoCliente) GetCursoById(id int64) (dao.Curso, error) {
 	var curso dao.Curso
 
-	result := Db.Where ("curso_id = ?", id).First(&curso)
+	result := Db.Where("curso_id = ?", id).First(&curso)
 
 	if result.Error != nil {
 		return curso, result.Error
@@ -52,16 +52,15 @@ func(s *cursoCliente) GetCursoById (id int64) (dao.Curso, error){
 
 	return curso, nil
 
-
 }
 
- func (s *cursoCliente) SearchCursos (palabra string) ([]dao.Curso, error){
+func (s *cursoCliente) SearchCursos(palabra string) ([]dao.Curso, error) {
 
 	var cursos []dao.Curso
 
-	result := Db.Where ("nombre LIKE ? OR categoria LIKE ?", "%"+palabra+"%","%"+palabra+"%").Find(&cursos)
+	result := Db.Where("nombre LIKE ? OR categoria LIKE ?", "%"+palabra+"%", "%"+palabra+"%").Find(&cursos)
 
-	if result.Error != nil{
+	if result.Error != nil {
 		return cursos, result.Error
 	}
 
@@ -69,14 +68,13 @@ func(s *cursoCliente) GetCursoById (id int64) (dao.Curso, error){
 
 }
 
-
-func (s *cursoCliente) GetCursosByIds(id []int64) ([]dao.Curso, error){
+func (s *cursoCliente) GetCursosByIds(id []int64) ([]dao.Curso, error) {
 
 	var cursos []dao.Curso
 
-	result := Db.Where ("curso_id IN (?)", id).Find(&cursos)
+	result := Db.Where("curso_id IN (?)", id).Find(&cursos)
 
-	if result.Error != nil{
+	if result.Error != nil {
 		return cursos, result.Error
 	}
 
@@ -84,8 +82,22 @@ func (s *cursoCliente) GetCursosByIds(id []int64) ([]dao.Curso, error){
 
 }
 
+func (s *cursoCliente) GetCursos() ([]dao.Curso, error) {
 
-func (s *cursoCliente) GetCursos() ([]dao.Curso, error){
+	var cursos []dao.Curso
+
+	result := Db.Find(&cursos)
+
+	if result.Error != nil {
+		return cursos, result.Error
+	}
+
+	return cursos, nil
+
+}
+
+/*
+func (s *cursoCliente) GetCursosByUsuarioid() ([]dao.Curso, error){
 
 	var cursos []dao.Curso
 
@@ -98,4 +110,4 @@ func (s *cursoCliente) GetCursos() ([]dao.Curso, error){
 	return cursos, nil
 
 }
-
+*/
