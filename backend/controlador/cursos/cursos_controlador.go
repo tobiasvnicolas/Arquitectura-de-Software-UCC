@@ -35,7 +35,8 @@ func CrearCurso(c *gin.Context){
 }
 
 func GetCursoById (c *gin.Context){
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	id := c.Param("id")
+	cursoID, err := strconv.ParseInt(id, 10, 64)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -43,9 +44,8 @@ func GetCursoById (c *gin.Context){
 		return
 	}
 
-	var cursoData dominio.CursoData
 
-	cursoData, er := servicios.CursoServicio.GetCursoById(id)
+	cursoData, er := servicios.CursoServicio.GetCursoById(cursoID)
 
 	if er != nil {
 		c.JSON(er.Status(), er)
@@ -59,7 +59,7 @@ func GetCursoById (c *gin.Context){
 
 
 func SearchCursos (c *gin.Context){
-	palabra := strings.TrimSpace(c.Param("palabra"))
+	palabra := strings.TrimSpace(c.Query("palabra"))
 
 	results, err := servicios.CursoServicio.SearchCursos(palabra)
 
@@ -93,6 +93,20 @@ func GetCursosByIds (c *gin.Context){
 
 
 	cursoData, er := servicios.CursoServicio.GetCursosByIds(cursoids)
+
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusOK, cursoData)
+
+}
+
+func GetCursos (c *gin.Context){
+
+
+	cursoData, er := servicios.CursoServicio.GetCursos()
 
 	if er != nil {
 		c.JSON(er.Status(), er)

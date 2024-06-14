@@ -8,5 +8,5 @@ type CursoData struct {
 }
 
 type CursoBuscado  struct{
-	Results []CursoData `json:"busqueda"`
+	Results []CursoData `json:"results"`
 }

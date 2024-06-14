@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -13,13 +13,20 @@ var (
 
 func init() {
 	router = gin.Default()
-	router.Use(cors.Default())
+
+		// Configurar CORS
+		config := cors.DefaultConfig()
+		config.AllowAllOrigins = true
+		config.AllowCredentials = true
+		config.AddAllowHeaders("Authorization")
+		router.Use(cors.New(config))
 }
 
 func StartRoute() {
 	mapUrls()
 
 	log.Info("Starting server")
+	
 	router.Run(":8080")
 }
 
