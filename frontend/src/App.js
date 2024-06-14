@@ -19,8 +19,8 @@ function App() {
           <Route exact path="/" element={<Home />} /> 
           <Route exact path="/cursos/todos" element={<CarruselDeCursos />} /> 
           <Route exact path="/cursos/buscar" element={<Resultados searchTerm={searchTerm}/>} /> 
-
-
+          <Route exact path="/inscripcion/:id" element={<MisCursos />} />
+          
         </Routes>
       </Router>
       <footer />
