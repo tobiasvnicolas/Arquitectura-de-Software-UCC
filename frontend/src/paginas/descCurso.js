@@ -5,25 +5,24 @@ import EnrollButton from './EnrollButton';
 import './descCurso.css';
 
 const descCurso = () => {
-    const { courseId } = useParams();
-    const [course, setCourse] = useState(null);
+    const { curso_id } = useParams();
+    const [curso, setCurso] = useState(null);
 
     useEffect(() => {
-        fetchdescCursos(courseId).then(data => setCourse(data));
-    }, [courseId]);
+        fetchdescCursos(curso_id).then(data => setCurso(data));
+    }, [curso_id]);
 
-    if (!course) {
-        return <div>Loading...</div>;
+    if (!curso) {
+        return <div>Cargando...</div>;
     }
 
     return (
         <div className="desc-curso">
-            <h2>{course.title}</h2>
-            <p>{course.description}</p>
-            <p className="instructor">Instructor: {course.instructor}</p>
-            <p className="duration">Duration: {course.duration}</p>
-            <p className="requirements">Requirements: {course.requirements}</p>
-            <EnrollButton courseId={courseId} className="enroll-button" />
+            <p>{curso.curso_id}</p>
+            <p>{curso.nombre}</p>
+            <p>{curso.descripcion}</p>
+            <p>{curso.categoria}</p>
+            <EnrollButton CursoID={CursoID} className="enroll-button" />
         </div>
     );
 };
