@@ -1,25 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { fetchmisCursos } from '../services/api';
+import axios from 'axios';
+import Curso from './curso';
 import './misCursos.css';
 
 const MisCursos = () => {
-    const [courses, setCourses] = useState([]);
+    const [cursos, setCursos] = useState([]);
 
     useEffect(() => {
-        fetchmisCursos().then(data => setCourses(data));
+        const fetchCursos = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/cursos/todos');
+                setCursos(response.data);
+            } catch (error) {
+                console.error('Error fetching cursos:', error);
+            }
+        };
+
+        fetchCursos();
+        //fetchmisCursos().then(data => setCourses(data));
+        //esto era lo original
     }, []);
 
-    if (courses.length === 0) {
+    if (cursos.length === 0) {
         return <div className="loading">Loading...</div>;
     }
+    /* 
+    useEffect(() => {
+        const fetchCursos = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/cursos/todos');
+                setCursos(response.data);
+            } catch (error) {
+                console.error('Error fetching cursos:', error);
+            }
+        };
+
+        fetchCursos();
+    }, []);
+    */
 
     return (
         <div className="mis-cursos">
             <h2>My Courses</h2>
             <ul>
-                {courses.map(course => (
+                {cursos.map(curso => (
                     <li key={course.id}>
-                        <a href={`/course/${course.id}`}>{course.title}</a>
+                        <a href={`/course/${curso.curso_id}`}>{curso.nombre}</a>
                     </li>
                 ))}
             </ul>
