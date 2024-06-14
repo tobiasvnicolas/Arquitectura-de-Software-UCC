@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchmisCursos } from '../services/api';
 import axios from 'axios';
-import Curso from './curso';
 import './misCursos.css';
 
 const MisCursos = () => {
@@ -46,7 +45,7 @@ const MisCursos = () => {
             <ul>
                 {cursos.map(curso => (
                     <li key={course.id}>
-                        <a href={`/course/${curso.curso_id}`}>{curso.nombre}</a>
+                        <a href={`/curso/${curso.curso_id}`}>{curso.nombre}</a>
                     </li>
                 ))}
             </ul>
