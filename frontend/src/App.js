@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NavegadorHome from './componentes/NavegadorHome';
+import CarruselDeCursos from './paginas/cursos';
+import Home from './paginas/home';
+import Resultados from './paginas/resultados';
+
+
+import { useState } from 'react';
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <NavegadorHome onSearch={setSearchTerm} />
+        <Routes>
+          <Route exact path="/" element={<Home />} /> 
+          <Route exact path="/cursos/todos" element={<CarruselDeCursos />} /> 
+          <Route exact path="/cursos/buscar" element={<Resultados searchTerm={searchTerm}/>} /> 
+
+
+        </Routes>
+      </Router>
+      <footer />
     </div>
   );
 }

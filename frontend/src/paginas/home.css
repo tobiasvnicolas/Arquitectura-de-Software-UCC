@@ -1,0 +1,110 @@
+/* home.css */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
+
+/* Estilos generales para la página principal */
+.home-container {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Asegurar altura mínima para ocupar toda la pantalla */
+    padding: 20px;
+    font-family: DM Serif Text    , sans-serif;
+    grid-template-columns: 1fr 1fr;
+    background: linear-gradient(45deg, #5a3ae7, #7746d1, #ac44e9);
+    background-size: 300% 300%; /* Hace que la animación sea visible */
+    animation: gradientAnimation 5s ease-in-out infinite;
+    
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.content-carousel-container {
+    display: flex;
+    justify-content: space-between; /* Espaciado entre los elementos */
+    align-items: flex-start; /* Alinear elementos verticalmente al inicio */
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff; /* Color de fondo del contenedor */
+    padding: 20px; /* Relleno interior */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+.mision{
+    display: flex;
+    justify-content: safe; /* Espaciado entre los elementos */
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff; /* Color de fondo del contenedor */
+    padding: 20px; /* Relleno interior */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+.mision-container {
+    width: 100%; /* Ancho del contenedor del texto */
+    padding: 15px ;
+}
+
+.content-container {
+    width: 45%; /* Ancho del contenedor del texto */
+    padding: 15px ;
+}
+
+.carousel-container {
+    margin-left: 64px;
+    width: 80%; /* Ancho del contenedor del carrusel */
+    padding: 5px; /* Relleno interior */
+}
+
+/* Estilos específicos para el carrusel */
+.carousel-container .carousel {
+    width: 100%;
+    max-width: 100%;
+}
+
+.carousel-container .slide img {
+    width: 100%;
+    height: auto;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.section-content {
+    font-size: 16px;
+    color: #666;
+    text-align: justify;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+  /* Estilos responsive */
+  @media screen and (max-width: 768px) {
+    .home-container {
+      grid-template-columns: 1fr;
+    }
+ }
