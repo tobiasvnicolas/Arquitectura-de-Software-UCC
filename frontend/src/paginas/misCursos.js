@@ -25,20 +25,6 @@ const MisCursos = () => {
     if (cursos.length === 0) {
         return <div className="loading">Loading...</div>;
     }
-    /* 
-    useEffect(() => {
-        const fetchCursos = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/cursos/todos');
-                setCursos(response.data);
-            } catch (error) {
-                console.error('Error fetching cursos:', error);
-            }
-        };
-
-        fetchCursos();
-    }, []);
-    */
 
     return (
         <div className="mis-cursos">
